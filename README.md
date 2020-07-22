@@ -1,10 +1,15 @@
 //Documentation in progress
 
-1. Agenda : Create a spanning tree.
-Grpah Type : undirected 
+leaf : means just one edge, 
+forest : if a single node disconnected to other tree/graph.
+
+
+1. Agenda : Create a graph.
+Grpah Type : undirected weighted.
+Traversal : BFS
 using objects instead of map.
 
-This is about creating a graph given the nodes and edges in a data structure and there is no duplication of edges between the nodes and hence there is a single path to every node. Hence, creating a 'Spanning Tree'.
+This is about creating a graph given the nodes and edges in a data structure and there is no duplication of edges between the nodes and hence there is a single path to every node. 
 
 
 (i) how i changed my datastructure and why that data structure?
@@ -15,6 +20,6 @@ hence, it is really very important how we are initializing and utilizing our dat
 "queue"
  which makes sense if i need ordered vertices and that's my intention of work the whole time.
 
- 2. Agenda : create a minimum spaning tree.
- Grpah Type : undirected 
+ 2. Agenda : create a spaning tree.
+ Grpah Type : undirected weighted.
  Data Structure : Array of objects
