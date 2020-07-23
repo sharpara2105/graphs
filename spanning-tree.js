@@ -24,11 +24,11 @@ graph.set('f',{a:0, b:0, c:2,d:9,e:3,f:0,g:12});
 graph.set('g',{a:0, b:0, c:0,d:0,e:10,f:12,g:0});
 
 // the idea that i should delete the duplicate node need not be used as it will strip the selection of the
-//node 2 to node 1 as only node1 to node2 will be chosen, however once node1 to node2 or node1 to node 2 has 
+//node 2 to node 1 as only node1 to node2 will be chosen, however once node1 to node2 or node2 to node 1 has 
 //been selected , we need not traverse node2 to node1 and can make it's length 0 so we are not repeating the
 //edge again in our spanning tree.
 
-var edge = new Map();
+const edge = new Map();
 edge.set('edge1',{length :10 , node1 : 'a', node2 : 'b'});
 edge.set('edge2',{length :50 , node1 : 'a', node2 : 'c'});
 edge.set('edge3',{length :40 , node1 : 'b', node2 : 'c'});
@@ -44,14 +44,13 @@ edge.set('edge12',{length :90 , node1 : 'd', node2 : 'f'});
 edge.set('edge13',{length :70 , node1 : 'e', node2 : 'b'});
 edge.set('edge14',{length :110 , node1 : 'e', node2 : 'd'});
 edge.set('edge15',{length :30 , node1 : 'e', node2 : 'f'});
-edge.set('edge16',{length :10 , node1 : 'e', node2 : 'g'});
+edge.set('edge16',{length :100 , node1 : 'e', node2 : 'g'});
 edge.set('edge17',{length :20 , node1 : 'f', node2 : 'c'});
 edge.set('edge18',{length :90 , node1 : 'f', node2 : 'd'});
 edge.set('edge19',{length :30 , node1 : 'f', node2 : 'e'});
 edge.set('edge20',{length :120 , node1 : 'f', node2 : 'g'});
 edge.set('edge21',{length :100 , node1 : 'g', node2 : 'e'});
 edge.set('edge22',{length :120 , node1 : 'g', node2 : 'f'});
-
 
 
 var minLength = edge.get('edge1').length;
@@ -69,6 +68,7 @@ var node2 = edge.get(compKey).node2;
 
 
 
+
 //let's draw the first edge now :
 var x1 = 200;
 var y1 = 200;
@@ -79,20 +79,20 @@ var movey = y1;
 x2 = movex + radius + minLength;
 y2 = movey;
 
-//node1
+// draw node1
 c.beginPath();
 c.arc(x1,y1,radius,0,2 * Math.PI,false);
 c.strokeStyle = 'red';
 c.stroke();
 
-//edge
+//draw edge
 c.beginPath();
 c.moveTo(movex,movey);
 c.lineTo(x2+radius,y2);
 c.strokeStyle = 'pink';
 c.stroke();
 
-//node2
+//draw node2
 c.beginPath();
 c.arc(x2+radius,y2,radius,0,2 * Math.PI,false);
 c.strokeStyle = 'red';
@@ -100,10 +100,148 @@ c.stroke();
 
 
 //make an entry that these nodes are drawn and possibly their relative position :
-
 var drawn = [];
-drawn.push({node: edge.get(compKey).node1, x: x1, y :y1 });
-drawn.push({node: edge.get(compKey).node2, x: x2, y :y2 });
+
+drawn.push(node1);
+drawn.push(node2);
+
+
+
+var near = [
+    {
+        nodeName : 'a',
+        adjNodes :[],
+        counter : 1024,
+        x : x1,
+        y : y1
+    },
+    {
+        nodeName : 'b',
+        adjNodes :[],
+        counter : 1024,
+        x : x2,
+        y :y2
+    },
+    {
+        nodeName : 'c',
+        adjNodes :[],
+        counter : 1024,
+        x : 0,
+        y : 0
+    },
+    {
+        nodeName : 'd',
+        adjNodes :[],
+        counter : 1024,
+        x : 0,
+        y : 0
+    },
+    {
+        nodeName : 'e',
+        adjNodes :[],
+        counter : 1024,
+        x : 0,
+        y : 0
+    },
+    {
+        nodeName : 'f',
+        adjNodes :[],
+        counter : 1024,
+        x : 0,
+        y : 0
+    },
+    {
+        nodeName : 'g',
+        adjNodes :[],
+        counter : 1024,
+        x : 0,
+        y : 0
+    },
+];
+
+function checkIndex(structure,value) {
+    const temp1=structure.findIndex(function(structure) {
+    return structure.nodeName === value ;
+    });
+    return temp1;
+}
+
+const i = checkIndex(near,node1)
+near[i].counter = 0;
+const j = checkIndex(near,node2)
+near[j].counter = 0;
+
+
+
+
+
+//get the adjacent nodes for the starting selected edge; node1 : 'a'
+for (let value of edge.values()) {
+    if(value.node1 == node1) {
+        const temp1=near.findIndex(function(near) {
+            return near.nodeName === value.node1 ;
+            });
+        near[temp1].adjNodes.push({node:value.node2, length: value.length});
+        
+    }
+    
+}
+//now get the adjacent node for the starting selected edge; node2 : 'b'
+for (let value of edge.values()) {
+    if(value.node1 == node2) {
+        const temp1=near.findIndex(function(near) {
+            return near.nodeName === value.node1 ;
+            });
+        near[temp1].adjNodes.push({node:value.node2, length: value.length});
+        
+    }
+    
+}
+
+//check if there is already an entry of this node in the drawn array.
+
+function checkEntry(value) {
+    const temp1=drawn.findIndex(function(drawn) {
+    return drawn === value ;
+    });
+    return temp1;
+}
+
+
+
+
+
+//get all the adjacent nodes where counter's value = 0 and their corresponding near index numbers;
+//can't save will have to find minimum on the fly alongside of that.
+
+var selectedValue = 1024;
+var selectedNode;
+for (var l = 0 ; l < near.length ; l ++) {
+    if(near[l].counter === 0) {
+        for ( var s = 0; s < near[l].adjNodes.length ; s ++) {
+            
+            if (near[l].adjNodes[s].length < selectedValue && checkEntry(near[l].adjNodes[s].node) === -1 ) {
+                selectedValue = near[l].adjNodes[s].length;
+                selectedNode = near[l].adjNodes[s].node;
+            }
+        }  
+    }
+}
+drawn.push(selectedNode);
+
+
+console.log(selectedValue);
+console.log(selectedNode);
+console.log(drawn);
+
+
+
+//compare lengths of objects in a single adjNode array:
+
+
+
+
+
 
 
 /*
