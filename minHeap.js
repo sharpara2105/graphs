@@ -1,5 +1,6 @@
-//finding minimum element by creating a min heap and extracting the first element.
-//let's create a min heap:
+//finding minimum element by creating a min heap and then we can extract the first element.
+//ideally minHeapify should be called again after exracting the smallest element.
+//Only min heap creation is shown in the code on an array:
 
 lengthArray = [5,4,8,7,6,2,1]
 
