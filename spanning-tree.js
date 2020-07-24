@@ -29,30 +29,33 @@ graph.set('g',{a:0, b:0, c:0,d:0,e:10,f:12,g:0});
 //edge again in our spanning tree.
 
 const edge = new Map();
-edge.set('edge1',{length :10 , node1 : 'a', node2 : 'b'});
+edge.set('edge1',{length :100 , node1 : 'a', node2 : 'b'});
 edge.set('edge2',{length :50 , node1 : 'a', node2 : 'c'});
-edge.set('edge3',{length :40 , node1 : 'b', node2 : 'c'});
-edge.set('edge4',{length :80 , node1 : 'b', node2 : 'd'});
-edge.set('edge5',{length :70 , node1 : 'b', node2 : 'e'});
-edge.set('edge6',{length :40 , node1 : 'c', node2 : 'b'});
-edge.set('edge7',{length :60 , node1 : 'c', node2 : 'd'});
-edge.set('edge8',{length :20 , node1 : 'c', node2 : 'f'});
-edge.set('edge9',{length :80 , node1 : 'd', node2 : 'b'});
-edge.set('edge10',{length :60 , node1 : 'd', node2 : 'c'});
-edge.set('edge11',{length :110 , node1 : 'd', node2 : 'e'});
-edge.set('edge12',{length :90 , node1 : 'd', node2 : 'f'});
-edge.set('edge13',{length :70 , node1 : 'e', node2 : 'b'});
-edge.set('edge14',{length :110 , node1 : 'e', node2 : 'd'});
-edge.set('edge15',{length :30 , node1 : 'e', node2 : 'f'});
-edge.set('edge16',{length :100 , node1 : 'e', node2 : 'g'});
-edge.set('edge17',{length :20 , node1 : 'f', node2 : 'c'});
-edge.set('edge18',{length :90 , node1 : 'f', node2 : 'd'});
-edge.set('edge19',{length :30 , node1 : 'f', node2 : 'e'});
-edge.set('edge20',{length :120 , node1 : 'f', node2 : 'g'});
-edge.set('edge21',{length :100 , node1 : 'g', node2 : 'e'});
-edge.set('edge22',{length :120 , node1 : 'g', node2 : 'f'});
+edge.set('edge3',{length :100 , node1 : 'b', node2 : 'a'});
+edge.set('edge4',{length :40 , node1 : 'b', node2 : 'c'});
+edge.set('edge5',{length :80 , node1 : 'b', node2 : 'd'});
+edge.set('edge6',{length :70 , node1 : 'b', node2 : 'e'});
+edge.set('edge7',{length :50 , node1 : 'c', node2 : 'a'});
+edge.set('edge8',{length :40 , node1 : 'c', node2 : 'b'});
+edge.set('edge9',{length :60 , node1 : 'c', node2 : 'd'});
+edge.set('edge10',{length :20 , node1 : 'c', node2 : 'f'});
+edge.set('edge11',{length :80 , node1 : 'd', node2 : 'b'});
+edge.set('edge12',{length :60 , node1 : 'd', node2 : 'c'});
+edge.set('edge13',{length :110 , node1 : 'd', node2 : 'e'});
+edge.set('edge14',{length :90 , node1 : 'd', node2 : 'f'});
+edge.set('edge15',{length :70 , node1 : 'e', node2 : 'b'});
+edge.set('edge16',{length :110 , node1 : 'e', node2 : 'd'});
+edge.set('edge17',{length :30 , node1 : 'e', node2 : 'f'});
+edge.set('edge18',{length :100 , node1 : 'e', node2 : 'g'});
+edge.set('edge19',{length :20 , node1 : 'f', node2 : 'c'});
+edge.set('edge20',{length :90 , node1 : 'f', node2 : 'd'});
+edge.set('edge21',{length :30 , node1 : 'f', node2 : 'e'});
+edge.set('edge22',{length :120 , node1 : 'f', node2 : 'g'});
+edge.set('edge23',{length :100 , node1 : 'g', node2 : 'e'});
+edge.set('edge24',{length :120 , node1 : 'g', node2 : 'f'});
 
 
+var minCost = 0;
 var minLength = edge.get('edge1').length;
 var compKey;
 for (let key of edge.keys()) {
@@ -62,7 +65,7 @@ for (let key of edge.keys()) {
       compKey = key;  
   }
 }
-
+minCost += minLength;
 var node1 = edge.get(compKey).node1;
 var node2 = edge.get(compKey).node2;
 
@@ -106,56 +109,55 @@ drawn.push(node1);
 drawn.push(node2);
 
 
-
 var near = [
     {
         nodeName : 'a',
         adjNodes :[],
         counter : 1024,
-        x : x1,
-        y : y1
+        // x : x1,
+        // y : y1
     },
     {
         nodeName : 'b',
         adjNodes :[],
         counter : 1024,
-        x : x2,
-        y :y2
+        // x : x2,
+        // y :y2
     },
     {
         nodeName : 'c',
         adjNodes :[],
         counter : 1024,
-        x : 0,
-        y : 0
+        // x : 0,
+        // y : 0
     },
     {
         nodeName : 'd',
         adjNodes :[],
         counter : 1024,
-        x : 0,
-        y : 0
+        // x : 0,
+        // y : 0
     },
     {
         nodeName : 'e',
         adjNodes :[],
         counter : 1024,
-        x : 0,
-        y : 0
+        // x : 0,
+        // y : 0
     },
     {
         nodeName : 'f',
         adjNodes :[],
         counter : 1024,
-        x : 0,
-        y : 0
+        // x : 0,
+        // y : 0
     },
     {
         nodeName : 'g',
         adjNodes :[],
         counter : 1024,
-        x : 0,
-        y : 0
+        // x : 0,
+        // y : 0
     },
 ];
 
@@ -165,40 +167,33 @@ function checkIndex(structure,value) {
     });
     return temp1;
 }
-
 const i = checkIndex(near,node1)
 near[i].counter = 0;
 const j = checkIndex(near,node2)
 near[j].counter = 0;
 
 
-
-
-
-//get the adjacent nodes for the starting selected edge; node1 : 'a'
-for (let value of edge.values()) {
-    if(value.node1 == node1) {
+function getAdjacentNodes(node) {
+    for(let value of edge.values()) {
+    if(value.node1 == node) {
         const temp1=near.findIndex(function(near) {
             return near.nodeName === value.node1 ;
             });
         near[temp1].adjNodes.push({node:value.node2, length: value.length});
         
     }
-    
 }
+
+}
+// //get the adjacent nodes for the starting selected edge; node1 : 'a'
+getAdjacentNodes(node1);
 //now get the adjacent node for the starting selected edge; node2 : 'b'
-for (let value of edge.values()) {
-    if(value.node1 == node2) {
-        const temp1=near.findIndex(function(near) {
-            return near.nodeName === value.node1 ;
-            });
-        near[temp1].adjNodes.push({node:value.node2, length: value.length});
-        
-    }
-    
-}
+getAdjacentNodes(node2);
 
-//check if there is already an entry of this node in the drawn array.
+
+// //----main algo------------*******************************-------------------------------
+
+// //check if there is already an entry of this node in the drawn array.
 
 function checkEntry(value) {
     const temp1=drawn.findIndex(function(drawn) {
@@ -209,13 +204,21 @@ function checkEntry(value) {
 
 
 
-
-
 //get all the adjacent nodes where counter's value = 0 and their corresponding near index numbers;
 //can't save will have to find minimum on the fly alongside of that.
 
+function  mainAlgo() {
+    
+const temp2 = near.findIndex(function(near) {
+              return near.counter != 0 ;
+            });
+    
+
+if (temp2 != -1) {
+
 var selectedValue = 1024;
-var selectedNode;
+var selectedNode=null;
+
 for (var l = 0 ; l < near.length ; l ++) {
     if(near[l].counter === 0) {
         for ( var s = 0; s < near[l].adjNodes.length ; s ++) {
@@ -223,22 +226,47 @@ for (var l = 0 ; l < near.length ; l ++) {
             if (near[l].adjNodes[s].length < selectedValue && checkEntry(near[l].adjNodes[s].node) === -1 ) {
                 selectedValue = near[l].adjNodes[s].length;
                 selectedNode = near[l].adjNodes[s].node;
+                
             }
         }  
     }
+   
 }
+
+
+
+
+
+// //-----------------------draw node and edge function here -----------------------
+
+// // make an entry to the drawn array.
 drawn.push(selectedNode);
+minCost += selectedValue;
 
 
-console.log(selectedValue);
-console.log(selectedNode);
-console.log(drawn);
+// // make counter of the corresponding node in the near array as '0' :
+const counterIndex = checkIndex(near,selectedNode);
+near[counterIndex].counter = 0;
 
 
+// //get all the adj nodes again :
 
-//compare lengths of objects in a single adjNode array:
+getAdjacentNodes(selectedNode);
 
 
+mainAlgo(); //keep calling mainAlgo() till all the (near.counter)'s become '0'
+
+}
+}
+
+
+//-------------------*******************************-------------------------------
+
+
+mainAlgo();
+
+console.log(near);
+console.log(minCost);
 
 
 
