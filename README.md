@@ -20,6 +20,8 @@ hence, it is really very important how we are initializing and utilizing our dat
 "queue"
  which makes sense if i need ordered vertices and that's my intention of work the whole time.
 
- 2. Agenda : create a spaning tree.
+ 2. Agenda : create a spaning tree by implementing prim's algo
  Grpah Type : undirected weighted.
- Data Structure : Array of objects
+ Data Structure : Map and Array of objects
+
+ Comments have been added in the file itself : 'spanning-tree.js'
